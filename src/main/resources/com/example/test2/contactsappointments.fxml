@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test2.controller.ContactsAppointments">
+   <children>
+      <ComboBox layoutX="316.0" layoutY="74.0" prefWidth="150.0" />
+      <Label layoutX="315.0" layoutY="38.0" text="Contacts with Appointments" />
+      <TableView fx:id="appointments" layoutY="124.0" prefHeight="426.0" prefWidth="801.0">
+         <columns>
+            <TableColumn prefWidth="75.0" text="Contact" />
+            <TableColumn prefWidth="80.00003051757812" text="Customer ID" />
+            <TableColumn prefWidth="105.60005187988281" text="Appointment ID" />
+            <TableColumn prefWidth="69.5999755859375" text="User ID" />
+            <TableColumn prefWidth="80.800048828125" text="Title" />
+            <TableColumn prefWidth="79.199951171875" text="Description" />
+            <TableColumn prefWidth="84.0" text="Location" />
+            <TableColumn prefWidth="67.20001220703125" text="Type" />
+            <TableColumn prefWidth="76.800048828125" text="Date" />
+            <TableColumn prefWidth="83.19998779296873" text="Time" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>
