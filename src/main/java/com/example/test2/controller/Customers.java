@@ -18,7 +18,6 @@ public class Customers {
     @FXML
     void onActionAdd (ActionEvent event) throws IOException {
 
-
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(HelloApplication.class.getResource("addCustomer.fxml"));
         stage.setScene(new Scene(scene));
@@ -27,7 +26,6 @@ public class Customers {
 
     @FXML
     void onActionUpdate (ActionEvent event) throws IOException {
-
 
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(HelloApplication.class.getResource("addCustomer.fxml"));
@@ -38,9 +36,35 @@ public class Customers {
     @FXML
     void onActionDelete (ActionEvent event) throws IOException {
 
-
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(HelloApplication.class.getResource("addCustomer.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
+    }
+
+    @FXML
+    void onActionSchedule (ActionEvent event) throws IOException {
+
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(HelloApplication.class.getResource("appointment.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
+    }
+
+    @FXML
+    void onActionAppMonth (ActionEvent event) throws IOException {
+
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(HelloApplication.class.getResource("appointmentsmonth.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
+    }
+
+    @FXML
+    void onActionContactsApp (ActionEvent event) throws IOException {
+
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(HelloApplication.class.getResource("contactsappointments.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     }

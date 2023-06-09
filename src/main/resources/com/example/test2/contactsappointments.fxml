@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test2.controller.ContactsAppointments">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test2.controller.ContactsAppointments">
    <children>
-      <ComboBox layoutX="316.0" layoutY="74.0" prefWidth="150.0" />
-      <Label layoutX="315.0" layoutY="38.0" text="Contacts with Appointments" />
-      <TableView fx:id="appointments" layoutY="124.0" prefHeight="426.0" prefWidth="801.0">
+      <ComboBox fx:id="contactsapp" layoutX="317.0" layoutY="31.0" prefWidth="150.0" />
+      <Label layoutX="316.0" layoutY="14.0" text="Contacts with Appointments" />
+      <TableView fx:id="appointments" layoutY="62.0" prefHeight="426.0" prefWidth="801.0">
          <columns>
             <TableColumn prefWidth="75.0" text="Contact" />
             <TableColumn prefWidth="80.00003051757812" text="Customer ID" />
@@ -25,5 +21,6 @@
             <TableColumn prefWidth="83.19998779296873" text="Time" />
          </columns>
       </TableView>
+      <Button fx:id="backcontact" layoutX="735.0" layoutY="510.0" mnemonicParsing="false" onAction="#onActionBackContact" text="Back" />
    </children>
 </AnchorPane>

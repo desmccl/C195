@@ -36,10 +36,7 @@
             <Label text="Division" GridPane.rowIndex="6" />
          </children>
       </GridPane>
-      <ListView layoutX="302.0" layoutY="208.0" prefHeight="161.0" prefWidth="309.0" />
-      <Label layoutX="302.0" layoutY="186.0" text="Appointments Scheduled" />
-      <DatePicker layoutX="313.0" layoutY="60.0" />
-      <Label layoutX="313.0" layoutY="22.0" text="Schedule appointment" />
-      <Button layoutX="431.0" layoutY="104.0" mnemonicParsing="false" text="Submit" />
+      <Button fx:id="submit" layoutX="424.0" layoutY="336.0" mnemonicParsing="false" onAction="#onActionSubmit" text="Submit" />
+      <Button fx:id="back" layoutX="529.0" layoutY="336.0" mnemonicParsing="false" onAction="#onActionBack" text="Back" />
    </children>
 </AnchorPane>

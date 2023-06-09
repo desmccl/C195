@@ -30,9 +30,9 @@
             <TextField fx:id="title" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Button fx:id="deleteapp" layoutX="772.0" layoutY="582.0" mnemonicParsing="false" text="Delete" />
-      <Button fx:id="updateapp" layoutX="682.0" layoutY="582.0" mnemonicParsing="false" text="Update" />
-      <Button fx:id="addapp" layoutX="595.0" layoutY="582.0" mnemonicParsing="false" text="Add" />
+      <Button fx:id="deleteapp" layoutX="772.0" layoutY="582.0" mnemonicParsing="false" onAction="#onActionDeleteApp" text="Delete" />
+      <Button fx:id="updateapp" layoutX="682.0" layoutY="582.0" mnemonicParsing="false" onAction="#onActionUpdateApp" text="Update" />
+      <Button fx:id="addapp" layoutX="595.0" layoutY="582.0" mnemonicParsing="false" onAction="#onActionAddApp" text="Add" />
       <TableView fx:id="appointments" layoutX="16.0" layoutY="286.0" prefHeight="272.0" prefWidth="806.0">
         <columns>
           <TableColumn prefWidth="75.0" text="Contact" />

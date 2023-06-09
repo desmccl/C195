@@ -16,7 +16,7 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException, SQLException {
         JDBC.openConnection();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1200, 600);
+        Scene scene = new Scene(fxmlLoader.load(), 800, 600);
         stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();
