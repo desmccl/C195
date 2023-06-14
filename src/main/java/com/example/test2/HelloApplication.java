@@ -10,27 +10,33 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.Properties;
 
 public class HelloApplication extends Application {
+    public static ResourceBundle rb;
     @Override
     public void start(Stage stage) throws IOException, SQLException {
         JDBC.openConnection();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
-        stage.setTitle("Login");
+        stage.setTitle("Scheduler");
         stage.setScene(scene);
         stage.show();
 
-        FruitsQuery.select(3);
 
-        //Locale.setDefault(new Locale("fr"));
+
 
         JDBC.closeConnection();
     }
 
 
 
+
     public static void main(String[] args) {
+        //Locale.setDefault(Locale.FRENCH);
+        rb = ResourceBundle.getBundle("main/Nat", Locale.getDefault());
+        System.out.println(rb.getString("login"));
         launch();
     }
 
