@@ -1,6 +1,8 @@
 package com.example.test2.controller;
 
 import com.example.test2.HelloApplication;
+import com.example.test2.helper.CustomerQuery;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,21 +10,51 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class Customers implements Initializable {
-    public Button addcus;
-    public Button updatecus;
-    public Button deletecus;
-    public Button schedule;
-    public Button appmonth;
-    public Button appcontacts;
+    @FXML
+    private Button backlogin;
+    @FXML
+    private Button addcus;
+    @FXML
+    private Button updatecus;
+    @FXML
+    private Button deletecus;
+    @FXML
+    private Button schedule;
+    @FXML
+    private Button appmonth;
+    @FXML
+    private Button appcontacts;
+    @FXML
+    private TableColumn <Customers, String> cusnamecol;
+    @FXML
+    private TableColumn <Customers, String> addresscol;
+    @FXML
+    private TableColumn <Customers, String> postcodecol;
+    @FXML
+    private TableColumn <Customers, String> phonecol;
+    @FXML
+    private TableColumn <Customers, String> divisionidcol;
+    @FXML
+    private TableColumn <Customers, Integer> cusidcol;
+    @FXML
+    private TableView<com.example.test2.model.Customers> custable;
+
+
+
     Stage stage;
     Parent scene;
+    //private ObservableList<com.example.test2.model.Customers> customerList;
 
     @FXML
     void onActionAdd (ActionEvent event) throws IOException {
@@ -35,9 +67,15 @@ public class Customers implements Initializable {
 
     @FXML
     void onActionUpdate (ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(HelloApplication.class.getResource("addCustomer.fxml"));
+        loader.load();
+
+        AddCustomer updateCustomer = loader.getController();
+        updateCustomer.sendCustomer(custable.getSelectionModel().getSelectedItem());
 
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(HelloApplication.class.getResource("addCustomer.fxml"));
+        Parent scene = loader.getRoot();
         stage.setScene(new Scene(scene));
         stage.show();
     }
@@ -78,14 +116,29 @@ public class Customers implements Initializable {
         stage.show();
     }
 
+    @FXML
+    void onActionBack (ActionEvent event) throws IOException {
+
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(HelloApplication.class.getResource("login.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        addcus.setText(HelloApplication.rb.getString("add"));
-        deletecus.setText(HelloApplication.rb.getString("delete"));
-        updatecus.setText(HelloApplication.rb.getString("update"));
-        schedule.setText(HelloApplication.rb.getString("scheduleappointment"));
-        appmonth.setText(HelloApplication.rb.getString("appointmentbymonth"));
-        appcontacts.setText(HelloApplication.rb.getString("contactswithappointments"));
+        try {
+            ObservableList<com.example.test2.model.Customers> customerList = CustomerQuery.select();
+            custable.setItems(customerList);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        cusidcol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        cusnamecol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        addresscol.setCellValueFactory(new PropertyValueFactory<>("address"));
+        postcodecol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        phonecol.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        divisionidcol.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
 
     }
 }

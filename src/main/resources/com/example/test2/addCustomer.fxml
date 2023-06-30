@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="375.0" prefWidth="625.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test2.controller.AddCustomer">
    <children>
@@ -25,18 +26,22 @@
             <Label text="Address" GridPane.rowIndex="2" />
             <Label text="Postal Code" GridPane.rowIndex="3" />
             <Label text="Phone" GridPane.rowIndex="4" />
-            <TextField disable="true" GridPane.columnIndex="1" />
-            <TextField prefHeight="25.0" prefWidth="188.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="cusid" disable="true" promptText="Auto-Gen Disabled" GridPane.columnIndex="1">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font></TextField>
+            <TextField fx:id="cusname" prefHeight="25.0" prefWidth="188.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="cusaddress" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="cuspostcode" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="cusphone" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ComboBox fx:id="cuscountry" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <ComboBox fx:id="cusdivision" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Label text="Country" GridPane.rowIndex="5" />
             <Label text="Division" GridPane.rowIndex="6" />
          </children>
       </GridPane>
-      <Button fx:id="submit" layoutX="424.0" layoutY="336.0" mnemonicParsing="false" onAction="#onActionSubmit" text="Submit" />
+      <Button fx:id="submit" layoutX="342.0" layoutY="336.0" mnemonicParsing="false" onAction="#onActionSubmit" text="Submit" />
       <Button fx:id="back" layoutX="529.0" layoutY="336.0" mnemonicParsing="false" onAction="#onActionBack" text="Back" />
+      <Button fx:id="updatecus" layoutX="437.0" layoutY="336.0" mnemonicParsing="false" onAction="#onActionUpdate" text="Update" />
    </children>
 </AnchorPane>

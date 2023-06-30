@@ -1,7 +1,6 @@
 package com.example.test2;
 
-import com.example.test2.helper.FruitsQuery;
-import com.example.test2.helper.JDBC;
+import com.example.test2.dao.JDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,7 +10,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.Properties;
 
 public class HelloApplication extends Application {
     public static ResourceBundle rb;
@@ -27,7 +25,9 @@ public class HelloApplication extends Application {
 
 
 
-        JDBC.closeConnection();
+        stage.setOnCloseRequest(event -> {
+            JDBC.closeConnection();
+        });
     }
 
 
@@ -35,8 +35,19 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
         //Locale.setDefault(Locale.FRENCH);
+        //TimeZone.setDefault(TimeZone.getTimeZone("Canada/Central"));
         rb = ResourceBundle.getBundle("main/Nat", Locale.getDefault());
-        System.out.println(rb.getString("login"));
+        if (Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en")) {
+        }
+        //System.out.println(ZoneId.systemDefault());
+        //ZoneId.getAvailableZoneIds().stream().filter(z->z.contains("Canada")).sorted().forEach(System.out::println);
+
+        /*LocalDate myLD = LocalDate.of(2023, 06,20);
+        LocalTime myLT = LocalTime.of(07,30);
+        LocalDateTime myLDT = LocalDateTime.of(myLD, myLT);
+        ZoneId myZoneID = ZoneId.systemDefault();
+        ZonedDateTime myZDT = ZonedDateTime.of(myLDT, myZoneID);
+        System.out.println(myZDT);*/
         launch();
     }
 

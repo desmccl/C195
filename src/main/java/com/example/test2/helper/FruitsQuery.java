@@ -1,5 +1,7 @@
 package com.example.test2.helper;
 
+import com.example.test2.dao.JDBC;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

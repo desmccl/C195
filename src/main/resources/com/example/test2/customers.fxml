@@ -5,14 +5,14 @@
 
 <AnchorPane prefHeight="359.0" prefWidth="597.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test2.controller.Customers">
    <children>
-      <TableView layoutX="-1.0" layoutY="-1.0" prefHeight="271.0" prefWidth="597.0">
+      <TableView fx:id="custable" layoutX="-1.0" layoutY="-1.0" prefHeight="271.0" prefWidth="597.0">
         <columns>
-          <TableColumn prefWidth="83.0" text="Customer ID" />
-          <TableColumn prefWidth="100.0" text="Customer Name" />
-            <TableColumn prefWidth="128.0" text="Address" />
-            <TableColumn minWidth="9.0" prefWidth="91.0" text="Postal Code" />
-            <TableColumn prefWidth="120.0" text="Phone" />
-            <TableColumn prefWidth="74.0" text="Division ID" />
+          <TableColumn fx:id="cusidcol" prefWidth="83.0" text="Customer ID" />
+          <TableColumn fx:id="cusnamecol" prefWidth="100.0" text="Customer Name" />
+            <TableColumn fx:id="addresscol" prefWidth="128.0" text="Address" />
+            <TableColumn fx:id="postcodecol" minWidth="9.0" prefWidth="91.0" text="Postal Code" />
+            <TableColumn fx:id="phonecol" prefWidth="120.0" text="Phone" />
+            <TableColumn fx:id="divisionidcol" prefWidth="74.0" text="Division" />
         </columns>
       </TableView>
       <Button fx:id="addcus" layoutX="403.0" layoutY="278.0" mnemonicParsing="false" onAction="#onActionAdd" text="Add" />
@@ -21,5 +21,6 @@
       <Button fx:id="schedule" layoutX="14.0" layoutY="278.0" mnemonicParsing="false" onAction="#onActionSchedule" text="Schedule Appointment" />
       <Button fx:id="appmonth" layoutX="14.0" layoutY="315.0" mnemonicParsing="false" onAction="#onActionAppMonth" text="Appointments by Month" />
       <Button fx:id="appcontacts" layoutX="402.0" layoutY="315.0" mnemonicParsing="false" onAction="#onActionContactsApp" text="Contacts with Appointments" />
+      <Button fx:id="backlogin" layoutX="255.0" layoutY="315.0" mnemonicParsing="false" onAction="#onActionBack" text="Back to Login" />
    </children>
 </AnchorPane>

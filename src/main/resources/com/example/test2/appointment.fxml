@@ -35,16 +35,16 @@
       <Button fx:id="addapp" layoutX="595.0" layoutY="582.0" mnemonicParsing="false" onAction="#onActionAddApp" text="Add" />
       <TableView fx:id="appointments" layoutX="16.0" layoutY="286.0" prefHeight="272.0" prefWidth="806.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Contact" />
-          <TableColumn prefWidth="80.00003051757812" text="Customer ID" />
-            <TableColumn prefWidth="105.60005187988281" text="Appointment ID" />
-            <TableColumn prefWidth="69.5999755859375" text="User ID" />
-            <TableColumn prefWidth="80.800048828125" text="Title" />
-            <TableColumn prefWidth="79.199951171875" text="Description" />
-            <TableColumn prefWidth="84.0" text="Location" />
-            <TableColumn prefWidth="67.20001220703125" text="Type" />
-            <TableColumn prefWidth="76.800048828125" text="Date" />
-            <TableColumn prefWidth="83.19998779296873" text="Time" />
+          <TableColumn fx:id="contactidcol" prefWidth="75.0" text="Contact ID" />
+          <TableColumn fx:id="customeridcol" prefWidth="80.00003051757812" text="Customer ID" />
+            <TableColumn fx:id="appidcol" prefWidth="105.60005187988281" text="Appointment ID" />
+            <TableColumn fx:id="useridcol" prefWidth="69.5999755859375" text="User ID" />
+            <TableColumn fx:id="titlecol" prefWidth="80.800048828125" text="Title" />
+            <TableColumn fx:id="descriptioncol" prefWidth="79.199951171875" text="Description" />
+            <TableColumn fx:id="locationcol" prefWidth="84.0" text="Location" />
+            <TableColumn fx:id="typecol" prefWidth="67.20001220703125" text="Type" />
+            <TableColumn fx:id="datecol" prefWidth="76.800048828125" text="Date" />
+            <TableColumn fx:id="timecol" prefWidth="83.19998779296873" text="Time" />
         </columns>
       </TableView>
       <RadioButton fx:id="month" layoutX="238.0" layoutY="245.0" mnemonicParsing="false" text="Month" />
