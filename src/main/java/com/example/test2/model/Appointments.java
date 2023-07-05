@@ -1,13 +1,16 @@
 package com.example.test2.model;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 public class Appointments {
     private int appointmentId;
     private String title;
     private String description;
     private String location;
     private String type;
-    private String start;
-    private String end;
+    private Timestamp start;
+    private Timestamp end;
     private int customerId;
     private int userId;
     private int contactId;
@@ -51,19 +54,19 @@ public class Appointments {
         this.type = type;
     }
 
-    public String getStart() {
+    public Timestamp getStart() {
         return start;
     }
 
-    public void setStart(String start) {
+    public void setStart(Timestamp start) {
         this.start = start;
     }
 
-    public String getEnd() {
+    public Timestamp getEnd() {
         return end;
     }
 
-    public void setEnd(String end) {
+    public void setEnd(Timestamp end) {
         this.end = end;
     }
 
@@ -93,8 +96,20 @@ public class Appointments {
 
 
 
-    public Appointments(int appointmentId, String title, String description, String location, String type, String start, String end, int customerId, int userId, int contactId) {
+    public Appointments(int appointmentId, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, int customerId, int userId, int contactId) {
         this.appointmentId = appointmentId;
+        this.title = title;
+        this.description = description;
+        this.location = location;
+        this.type = type;
+        this.start = Timestamp.valueOf(start);
+        this.end = Timestamp.valueOf(end);
+        this.customerId = customerId;
+        this.userId = userId;
+        this.contactId = contactId;
+    }
+
+    public Appointments(String title, String description, String location, String type, Timestamp start, Timestamp end, int customerId, int userId, int contactId) {
         this.title = title;
         this.description = description;
         this.location = location;

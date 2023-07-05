@@ -9,15 +9,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Customers implements Initializable {
@@ -58,7 +58,6 @@ public class Customers implements Initializable {
 
     @FXML
     void onActionAdd (ActionEvent event) throws IOException {
-
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(HelloApplication.class.getResource("addCustomer.fxml"));
         stage.setScene(new Scene(scene));
@@ -81,17 +80,40 @@ public class Customers implements Initializable {
     }
 
     @FXML
-    void onActionDelete (ActionEvent event) throws IOException {
+    void onActionDelete (ActionEvent event) throws IOException, SQLException {
+        com.example.test2.model.Customers selectedCustomer = custable.getSelectionModel().getSelectedItem();
+
+        if (!selectedCustomer.getAppointmentsList().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setContentText("Please delete all appointments first");
+            alert.showAndWait();
+            return;
+        }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Selected customer will be deleted, do you want to continue?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            int customerId = Integer.parseInt(selectedCustomer.getCustomerId());
+            CustomerQuery.delete(customerId);
+
+        } else {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Error");
+            errorAlert.setHeaderText(null);
+            errorAlert.setContentText("Customer not deleted");
+            errorAlert.showAndWait();
+        }
 
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(HelloApplication.class.getResource("addCustomer.fxml"));
+        scene = FXMLLoader.load(HelloApplication.class.getResource("customers.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
+
     }
 
     @FXML
     void onActionSchedule (ActionEvent event) throws IOException {
-
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(HelloApplication.class.getResource("appointment.fxml"));
         stage.setScene(new Scene(scene));
@@ -100,7 +122,6 @@ public class Customers implements Initializable {
 
     @FXML
     void onActionAppMonth (ActionEvent event) throws IOException {
-
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(HelloApplication.class.getResource("appointmentsmonth.fxml"));
         stage.setScene(new Scene(scene));
@@ -109,7 +130,6 @@ public class Customers implements Initializable {
 
     @FXML
     void onActionContactsApp (ActionEvent event) throws IOException {
-
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(HelloApplication.class.getResource("contactsappointments.fxml"));
         stage.setScene(new Scene(scene));
@@ -118,7 +138,6 @@ public class Customers implements Initializable {
 
     @FXML
     void onActionBack (ActionEvent event) throws IOException {
-
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(HelloApplication.class.getResource("login.fxml"));
         stage.setScene(new Scene(scene));
