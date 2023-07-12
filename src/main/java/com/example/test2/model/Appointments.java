@@ -1,6 +1,5 @@
 package com.example.test2.model;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class Appointments {
@@ -9,11 +8,25 @@ public class Appointments {
     private String description;
     private String location;
     private String type;
-    private Timestamp start;
-    private Timestamp end;
-    private int customerId;
+    private LocalDateTime start;
+    private LocalDateTime end;
+    private String customerId;
     private int userId;
-    private int contactId;
+    private String contactId;
+
+    public String getContactName() {
+        return contactName;
+    }
+
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
+    }
+
+    private String contactName;
+
+    public Appointments() {
+    }
+
     public int getAppointmentId() {
         return appointmentId;
     }
@@ -54,27 +67,27 @@ public class Appointments {
         this.type = type;
     }
 
-    public Timestamp getStart() {
+    public LocalDateTime getStart() {
         return start;
     }
 
-    public void setStart(Timestamp start) {
+    public void setStart(LocalDateTime start) {
         this.start = start;
     }
 
-    public Timestamp getEnd() {
+    public LocalDateTime getEnd() {
         return end;
     }
 
-    public void setEnd(Timestamp end) {
+    public void setEnd(LocalDateTime end) {
         this.end = end;
     }
 
-    public int getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
 
@@ -86,30 +99,18 @@ public class Appointments {
         this.userId = userId;
     }
 
-    public int getContactId() {
+    public String getContactId() {
         return contactId;
     }
 
-    public void setContactId(int contactId) {
+    public void setContactId(String contactId) {
         this.contactId = contactId;
     }
 
 
 
-    public Appointments(int appointmentId, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, int customerId, int userId, int contactId) {
+    public Appointments(int appointmentId, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, String customerId, int userId, String contactId) {
         this.appointmentId = appointmentId;
-        this.title = title;
-        this.description = description;
-        this.location = location;
-        this.type = type;
-        this.start = Timestamp.valueOf(start);
-        this.end = Timestamp.valueOf(end);
-        this.customerId = customerId;
-        this.userId = userId;
-        this.contactId = contactId;
-    }
-
-    public Appointments(String title, String description, String location, String type, Timestamp start, Timestamp end, int customerId, int userId, int contactId) {
         this.title = title;
         this.description = description;
         this.location = location;
@@ -119,5 +120,27 @@ public class Appointments {
         this.customerId = customerId;
         this.userId = userId;
         this.contactId = contactId;
+    }
+
+    public Appointments(String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, String customerId, int userId, String contactId) {
+        this.title = title;
+        this.description = description;
+        this.location = location;
+        this.type = type;
+        this.start = start;
+        this.end = end;
+        this.customerId = customerId;
+        this.userId = userId;
+        this.contactId = contactId;
+    }
+
+    public Appointments(String type, LocalDateTime start) {
+        this.type = type;
+        this.start = start;
+    }
+
+    @Override
+    public String toString() {
+        return type;
     }
 }

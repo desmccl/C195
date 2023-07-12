@@ -31,6 +31,20 @@ public abstract class CustomerQuery {
         return customerList;
     }
 
+    public static int select2() throws SQLException {
+        String sql = "SELECT COUNT(*) AS customerCount FROM Customers";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        int customerCount = 0;
+
+        if (rs.next()) {
+            customerCount = rs.getInt("customerCount");
+        }
+
+        return customerCount;
+    }
+
     public static int update(int customerId, String customerName, String address, String postalCode, String phone, int divisionID) throws SQLException {
         String sql = "UPDATE CUSTOMERS SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);

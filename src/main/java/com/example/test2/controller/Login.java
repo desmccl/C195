@@ -1,7 +1,9 @@
 package com.example.test2.controller;
 
 import com.example.test2.HelloApplication;
+import com.example.test2.helper.AppointmentQuery;
 import com.example.test2.helper.LoginQuery;
+import com.example.test2.model.Appointments;
 import com.example.test2.model.Customers;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +18,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ResourceBundle;
 
@@ -73,6 +77,8 @@ public class Login implements Initializable {
         alert.showAndWait();
     }
 
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         lblusername.setText(HelloApplication.rb.getString("username"));
@@ -81,6 +87,7 @@ public class Login implements Initializable {
 
         String userLocation = determineUserLocation();
         location.setText(userLocation);
+
     }
 
 

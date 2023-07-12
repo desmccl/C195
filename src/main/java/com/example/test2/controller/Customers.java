@@ -1,7 +1,9 @@
 package com.example.test2.controller;
 
 import com.example.test2.HelloApplication;
+import com.example.test2.helper.AppointmentQuery;
 import com.example.test2.helper.CustomerQuery;
+import com.example.test2.model.Appointments;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,11 +18,17 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.chrono.ChronoLocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Customers implements Initializable {
+    @FXML
+    private Button numcusinsystem;
     @FXML
     private Button backlogin;
     @FXML
@@ -54,7 +62,50 @@ public class Customers implements Initializable {
 
     Stage stage;
     Parent scene;
-    //private ObservableList<com.example.test2.model.Customers> customerList;
+
+    private boolean appointmentAlert(LocalDateTime appointmentAlert) {
+
+        ObservableList<Appointments> appointmentsList = null;
+        try {
+            appointmentsList = AppointmentQuery.select();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        boolean hasAlert = false;
+
+        for (Appointments existingAppointment : appointmentsList) {
+            LocalDateTime start = existingAppointment.getStart();
+
+            // Calculate the time difference between the current system time and the appointment start time
+            long minutesDifference = ChronoUnit.MINUTES.between(appointmentAlert,start);
+
+            // Check if the appointment is within 15 minutes from the current system time
+            if (minutesDifference >= 0 && minutesDifference <= 15) {
+                // Print a notification message to the console
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Upcoming Appointment");
+                alert.setContentText("You have an appointment in approx " + minutesDifference + " min(s)");
+                alert.showAndWait();
+
+                // Set the flag to indicate that an alert exists
+                hasAlert = true;
+            } else if (minutesDifference >= -15) {
+                // Print a notification message to the console
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Upcoming Appointment");
+                alert.setContentText("Appointment started approx " + minutesDifference + " min(s) ago!");
+                alert.showAndWait();
+
+                hasAlert = true;
+            }
+        }
+
+        return hasAlert;
+    }
+
+
+
 
     @FXML
     void onActionAdd (ActionEvent event) throws IOException {
@@ -63,7 +114,13 @@ public class Customers implements Initializable {
         stage.setScene(new Scene(scene));
         stage.show();
     }
-
+    @FXML
+    void onActionCusSystem (ActionEvent event) throws IOException {
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(HelloApplication.class.getResource("customreport.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
+    }
     @FXML
     void onActionUpdate (ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -159,5 +216,9 @@ public class Customers implements Initializable {
         phonecol.setCellValueFactory(new PropertyValueFactory<>("phone"));
         divisionidcol.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
 
+        //appointmentAlert(LocalDateTime.from(LocalTime.now()));
+
+        LocalDateTime currentSystemTime = LocalDateTime.now();
+        appointmentAlert(currentSystemTime);
     }
 }

@@ -13,6 +13,10 @@ public class Customers {
     private String divisionName;
     ObservableList<Appointments> appointmentsList = FXCollections.observableArrayList();
 
+    public Customers(String customerId) {
+        this.customerId = customerId;
+    }
+
     public String getCustomerId() {
         return customerId;
     }
@@ -90,5 +94,10 @@ public class Customers {
         this.postalCode = postalCode;
         this.phone = phone;
         this.divisionId = divisionId;
+    }
+
+    @Override
+    public String toString() {
+        return customerId;
     }
 }

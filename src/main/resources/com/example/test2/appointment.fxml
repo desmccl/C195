@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="621.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test2.controller.Appointment">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test2.controller.Appointment">
    <children>
       <GridPane layoutX="14.0" layoutY="14.0" prefHeight="161.0" prefWidth="339.0">
         <columnConstraints>
@@ -34,26 +34,9 @@
             <TextField fx:id="title" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Button fx:id="deleteapp" layoutX="772.0" layoutY="582.0" mnemonicParsing="false" onAction="#onActionDeleteApp" text="Delete" />
-      <Button fx:id="updateapp" layoutX="682.0" layoutY="582.0" mnemonicParsing="false" onAction="#onActionUpdateApp" text="Update" />
-      <Button fx:id="addapp" layoutX="595.0" layoutY="582.0" mnemonicParsing="false" onAction="#onActionAddApp" text="Add" />
-      <TableView fx:id="appointments" layoutX="16.0" layoutY="286.0" prefHeight="272.0" prefWidth="806.0">
-        <columns>
-          <TableColumn fx:id="contactidcol" prefWidth="75.0" text="Contact ID" />
-          <TableColumn fx:id="customeridcol" prefWidth="80.00003051757812" text="Customer ID" />
-            <TableColumn fx:id="appidcol" prefWidth="105.60005187988281" text="Appointment ID" />
-            <TableColumn fx:id="useridcol" prefWidth="69.5999755859375" text="User ID" />
-            <TableColumn fx:id="titlecol" prefWidth="80.800048828125" text="Title" />
-            <TableColumn fx:id="descriptioncol" prefWidth="79.199951171875" text="Description" />
-            <TableColumn fx:id="locationcol" prefWidth="84.0" text="Location" />
-            <TableColumn fx:id="typecol" prefWidth="67.20001220703125" text="Type" />
-            <TableColumn fx:id="startcol" prefWidth="82.60003662109375" text="Start" />
-            <TableColumn fx:id="endcol" prefWidth="78.199951171875" text="End" />
-        </columns>
-      </TableView>
-      <RadioButton fx:id="month" layoutX="238.0" layoutY="245.0" mnemonicParsing="false" text="Month" />
-      <RadioButton fx:id="week" layoutX="353.0" layoutY="245.0" mnemonicParsing="false" text="Week" />
-      <RadioButton fx:id="all" layoutX="466.0" layoutY="245.0" mnemonicParsing="false" text="All" />
+      <Button fx:id="deleteapp" layoutX="235.0" layoutY="582.0" mnemonicParsing="false" onAction="#onActionDeleteApp" text="Delete" />
+      <Button fx:id="updateapp" layoutX="353.0" layoutY="582.0" mnemonicParsing="false" onAction="#onActionUpdateApp" text="Select to Update" />
+      <Button fx:id="addapp" layoutX="146.0" layoutY="582.0" mnemonicParsing="false" onAction="#onActionAddApp" text="Add" />
       <GridPane layoutX="385.0" layoutY="14.0" prefHeight="162.0" prefWidth="322.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -79,5 +62,65 @@
             <ComboBox fx:id="time" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
+      <Button layoutX="687.0" layoutY="582.0" mnemonicParsing="false" onAction="#onActionBack2" text="Back" />
+      <TabPane layoutX="13.0" layoutY="190.0" prefHeight="392.0" prefWidth="974.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="all" text="All">
+               <content>
+                  <TableView fx:id="appointments" prefHeight="242.0" prefWidth="442.0">
+                    <columns>
+                      <TableColumn fx:id="contactidcol" prefWidth="147.19999313354492" text="Contact" />
+                      <TableColumn fx:id="customeridcol" prefWidth="54.40000915527344" text="Cus ID" />
+                        <TableColumn fx:id="appidcol" prefWidth="71.80000305175781" text="App ID" />
+                        <TableColumn fx:id="useridcol" prefWidth="59.600006103515625" text="User ID" />
+                        <TableColumn fx:id="titlecol" prefWidth="80.800048828125" text="Title" />
+                        <TableColumn fx:id="descriptioncol" prefWidth="79.199951171875" text="Description" />
+                        <TableColumn fx:id="locationcol" prefWidth="84.0" text="Location" />
+                        <TableColumn fx:id="typecol" prefWidth="102.0" text="Type" />
+                        <TableColumn fx:id="startcol" prefWidth="134.0" text="Start" />
+                        <TableColumn fx:id="endcol" prefWidth="157.5999755859375" text="End" />
+                    </columns>
+                  </TableView>
+               </content>
+            </Tab>
+          <Tab fx:id="month" text="Month">
+               <content>
+                  <TableView fx:id="appointments2" prefHeight="242.0" prefWidth="442.0">
+                     <columns>
+                        <TableColumn fx:id="contactidcol1" prefWidth="147.19999313354492" text="Contact" />
+                        <TableColumn fx:id="customeridcol1" prefWidth="54.40000915527344" text="Cus ID" />
+                        <TableColumn fx:id="appidcol1" prefWidth="71.80000305175781" text="App ID" />
+                        <TableColumn fx:id="useridcol1" prefWidth="59.600006103515625" text="User ID" />
+                        <TableColumn fx:id="titlecol1" prefWidth="80.800048828125" text="Title" />
+                        <TableColumn fx:id="descriptioncol1" prefWidth="79.199951171875" text="Description" />
+                        <TableColumn fx:id="locationcol1" prefWidth="84.0" text="Location" />
+                        <TableColumn fx:id="typecol1" prefWidth="102.0" text="Type" />
+                        <TableColumn fx:id="startcol1" prefWidth="134.0" text="Start" />
+                        <TableColumn fx:id="endcol1" prefWidth="157.5999755859375" text="End" />
+                     </columns>
+                  </TableView>
+               </content>
+            </Tab>
+            <Tab fx:id="week" text="Week">
+               <content>
+                  <TableView fx:id="appointments3" prefHeight="242.0" prefWidth="442.0">
+                     <columns>
+                        <TableColumn fx:id="contactidcol11" prefWidth="147.19999313354492" text="Contact" />
+                        <TableColumn fx:id="customeridcol11" prefWidth="54.40000915527344" text="Cus ID" />
+                        <TableColumn fx:id="appidcol11" prefWidth="71.80000305175781" text="App ID" />
+                        <TableColumn fx:id="useridcol11" prefWidth="59.600006103515625" text="User ID" />
+                        <TableColumn fx:id="titlecol11" prefWidth="80.800048828125" text="Title" />
+                        <TableColumn fx:id="descriptioncol11" prefWidth="79.199951171875" text="Description" />
+                        <TableColumn fx:id="locationcol11" prefWidth="84.0" text="Location" />
+                        <TableColumn fx:id="typecol11" prefWidth="102.0" text="Type" />
+                        <TableColumn fx:id="startcol11" prefWidth="134.0" text="Start" />
+                        <TableColumn fx:id="endcol11" prefWidth="157.5999755859375" text="End" />
+                     </columns>
+                  </TableView>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <Button fx:id="submitupdt" layoutX="496.0" layoutY="582.0" mnemonicParsing="false" onAction="#onActionSubmit" text="Submit Updates" />
    </children>
 </AnchorPane>
