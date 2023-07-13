@@ -38,6 +38,9 @@ public class HelloApplication extends Application {
         if (Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en")) {
         }
 
+        System.out.println("Java Version: " + System.getProperty("java.version"));
+        System.out.println("Java Runtime Version: " + System.getProperty("java.runtime.version"));
+
         launch();
     }
 
