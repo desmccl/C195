@@ -1,11 +1,7 @@
 package com.example.test2.controller;
 
 import com.example.test2.HelloApplication;
-import com.example.test2.helper.AppointmentQuery;
-import com.example.test2.helper.CustomerQuery;
-import com.example.test2.model.Appointments;
-import com.example.test2.model.Customers;
-import javafx.collections.ObservableList;
+import com.example.test2.dao.CustomerQuery;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,12 +17,14 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**this is the controller for the third custom report, it counts customers in the system*/
 public class Customreport implements Initializable {
     @FXML
     private Label cusinsystem;
     Stage stage;
     Parent scene;
 
+    /**this is the event handler to go back to the previous page*/
     @FXML
     void onActionBack5 (ActionEvent event) throws IOException {
 
@@ -36,6 +34,8 @@ public class Customreport implements Initializable {
         stage.show();
     }
 
+    /**this is the initialize method, it gets the number of customers in the system using the select2() method from the corresponding query class
+     * and sets it to the label*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         int customersNumber;

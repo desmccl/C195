@@ -1,7 +1,6 @@
 package com.example.test2.model;
 /**This is the First Level Divisions model class*/
 public class FirstLevelDivisions {
-    /**These are the variables for division, division id, and country id*/
     private String division;
     private int divisionId;
     private int countryId;
@@ -30,13 +29,13 @@ public class FirstLevelDivisions {
     public String getDivision() {
         return division;
     }
-/**This is the constructor*/
+    /**This is the constructor*/
     public FirstLevelDivisions(int divisionId, String division, int countryId) {
         this.divisionId = divisionId;
         this.division = division;
         this.countryId = countryId;
     }
-/**This is the toString method to return division as a string*/
+    /**This is the toString method to return division as a string*/
     @Override
     public String toString() {
         return division;

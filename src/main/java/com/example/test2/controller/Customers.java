@@ -1,8 +1,8 @@
 package com.example.test2.controller;
 
 import com.example.test2.HelloApplication;
-import com.example.test2.helper.AppointmentQuery;
-import com.example.test2.helper.CustomerQuery;
+import com.example.test2.dao.AppointmentQuery;
+import com.example.test2.dao.CustomerQuery;
 import com.example.test2.model.Appointments;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,13 +19,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.chrono.ChronoLocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Iterator;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**This is the controller for the customers page that appears after login*/
 public class Customers implements Initializable {
     @FXML
     private Button numcusinsystem;
@@ -58,11 +56,11 @@ public class Customers implements Initializable {
     @FXML
     private TableView<com.example.test2.model.Customers> custable;
 
-
-
     Stage stage;
     Parent scene;
 
+    /**this method checks for appointments within 15 mins of a user logging in by getting the current time on the users device and checking
+     * it against scheduled appointments. It also lets a user know when an appointment started already*/
     private boolean appointmentAlert(LocalDateTime appointmentAlert) {
 
         ObservableList<Appointments> appointmentsList = null;
@@ -77,21 +75,18 @@ public class Customers implements Initializable {
         for (Appointments existingAppointment : appointmentsList) {
             LocalDateTime start = existingAppointment.getStart();
 
-            // Calculate the time difference between the current system time and the appointment start time
             long minutesDifference = ChronoUnit.MINUTES.between(appointmentAlert,start);
 
-            // Check if the appointment is within 15 minutes from the current system time
             if (minutesDifference >= 0 && minutesDifference <= 15) {
-                // Print a notification message to the console
+
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Upcoming Appointment");
                 alert.setContentText("You have an appointment in approx " + minutesDifference + " min(s)");
                 alert.showAndWait();
 
-                // Set the flag to indicate that an alert exists
                 hasAlert = true;
             } else if (minutesDifference >= -15) {
-                // Print a notification message to the console
+
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Upcoming Appointment");
                 alert.setContentText("Appointment started approx " + minutesDifference + " min(s) ago!");
@@ -104,9 +99,7 @@ public class Customers implements Initializable {
         return hasAlert;
     }
 
-
-
-
+    /**this is the event handler to go to the add customer form*/
     @FXML
     void onActionAdd (ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -114,6 +107,7 @@ public class Customers implements Initializable {
         stage.setScene(new Scene(scene));
         stage.show();
     }
+    /**this is the event handler to go to the custom report that counts how many customers there are in the system*/
     @FXML
     void onActionCusSystem (ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -121,6 +115,9 @@ public class Customers implements Initializable {
         stage.setScene(new Scene(scene));
         stage.show();
     }
+
+    /**this is the event handler to go to the add customer form, it uses the sendCustomer() method from the add customer controller to pass customer
+     * information over to be updated*/
     @FXML
     void onActionUpdate (ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -136,6 +133,8 @@ public class Customers implements Initializable {
         stage.show();
     }
 
+    /**this is the event handler to delete a customer, it does not allow a user to delete a customer with appointments scheduled
+     * and provides appropriate messaging for errors and confirmation*/
     @FXML
     void onActionDelete (ActionEvent event) throws IOException, SQLException {
         com.example.test2.model.Customers selectedCustomer = custable.getSelectionModel().getSelectedItem();
@@ -169,6 +168,7 @@ public class Customers implements Initializable {
 
     }
 
+    /**this is the event handler to go to the appointment scheduler page*/
     @FXML
     void onActionSchedule (ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -177,6 +177,7 @@ public class Customers implements Initializable {
         stage.show();
     }
 
+    /**this is the event handler to go to the report for appointments by month, type, and count*/
     @FXML
     void onActionAppMonth (ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -185,6 +186,7 @@ public class Customers implements Initializable {
         stage.show();
     }
 
+    /**this is the event handler to go to the report that shows appointments for each contact*/
     @FXML
     void onActionContactsApp (ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -193,6 +195,7 @@ public class Customers implements Initializable {
         stage.show();
     }
 
+    /**this is the event handler to go back to the login page*/
     @FXML
     void onActionBack (ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -201,6 +204,8 @@ public class Customers implements Initializable {
         stage.show();
     }
 
+    /**this is the initialize method, it sets the customer information to the tableview using the select() method in the corresponding query class
+     * and calls the appointmentAlert() method to display any alerts about upcoming or past appointments within 15 mins*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -215,8 +220,6 @@ public class Customers implements Initializable {
         postcodecol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
         phonecol.setCellValueFactory(new PropertyValueFactory<>("phone"));
         divisionidcol.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
-
-        //appointmentAlert(LocalDateTime.from(LocalTime.now()));
 
         LocalDateTime currentSystemTime = LocalDateTime.now();
         appointmentAlert(currentSystemTime);

@@ -1,18 +1,13 @@
 package com.example.test2;
 
-import com.example.test2.dao.JDBC;
-import com.example.test2.model.Appointments;
+import com.example.test2.helper.JDBC;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.io.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class HelloApplication extends Application {
@@ -42,30 +37,6 @@ public class HelloApplication extends Application {
         rb = ResourceBundle.getBundle("main/Nat", Locale.getDefault());
         if (Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en")) {
         }
-
-        //filename variable
-        String fileName = "groceries.txt", item;
-
-        //create scanner object
-        Scanner keyBoard = new Scanner(System.in);
-
-        //get item count
-        System.out.println("How many items do you have?");
-        int numItems = keyBoard.nextInt();
-        //clear keyboard buffer
-        keyBoard.nextLine();
-        //create and open file
-        PrintWriter outputFile = new PrintWriter(fileName);
-
-        for (int i=0; i < numItems; i++) {
-            System.out.println("Enter item" + (i+1) + ": ");
-            item = keyBoard.nextLine();
-            outputFile.println(item);
-        }
-
-        //close file
-        outputFile.close();
-        System.out.println("File written");
 
         launch();
     }

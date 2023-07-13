@@ -1,8 +1,8 @@
 package com.example.test2.controller;
 
 import com.example.test2.HelloApplication;
-import com.example.test2.helper.CustomerQuery;
-import com.example.test2.helper.FLDQuery;
+import com.example.test2.dao.CustomerQuery;
+import com.example.test2.dao.FLDQuery;
 import com.example.test2.model.Customers;
 import com.example.test2.model.FirstLevelDivisions;
 import javafx.collections.FXCollections;
@@ -25,29 +25,31 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-//import static com.example.test2.helper.CustomerQuery.insertcus;
-
-
+/**This is the controller for the form to add customers*/
 public class AddCustomer implements Initializable {
-
-    public TextField cusname;
-    public TextField cusid;
-    public TextField cusaddress;
-    public TextField cuspostcode;
-    public TextField cusphone;
-    public ComboBox<String> cuscountry;
+    @FXML
+    private TextField cusname;
+    @FXML
+    private TextField cusid;
+    @FXML
+    private TextField cusaddress;
+    @FXML
+    private TextField cuspostcode;
+    @FXML
+    private TextField cusphone;
+    @FXML
+    private ComboBox<String> cuscountry;
     @FXML
     private ComboBox<FirstLevelDivisions> cusdivision;
-    public Button submit;
-    public Button back;
+    @FXML
+    private Button submit;
+    @FXML
+    private Button back;
     public ObservableList<FirstLevelDivisions> divisionNames = FXCollections.observableArrayList();
-    public ObservableList<Customers> customerList = FXCollections.observableArrayList();
-
-
-
     Stage stage;
     Parent scene;
 
+    /**this populates the division combobox with division names using the select2() method from the corresponding query class*/
     private void populatedivisionComboBox() {
         try {
             divisionNames = FLDQuery.select2();
@@ -56,6 +58,7 @@ public class AddCustomer implements Initializable {
         }
     }
 
+    /**this filters the divisions based on the country selected in the combobox*/
     private ObservableList<FirstLevelDivisions> filterDivisionsByCountry(String country, ObservableList<FirstLevelDivisions> divisionList) {
         ObservableList<FirstLevelDivisions> filteredDivisions = FXCollections.observableArrayList();
 
@@ -72,21 +75,26 @@ public class AddCustomer implements Initializable {
         return filteredDivisions;
     }
 
+    /**this checks if the division matches the country selected, in this instance the U.S.*/
     private boolean isDivisionInUnitedStates(FirstLevelDivisions division) {
         int selectedCountryId = getCountryIdByName(cuscountry.getSelectionModel().getSelectedItem());
         return division.getCountryId() == selectedCountryId;
     }
 
+    /**this checks if the division matches the country selected, in this instance Canada*/
     private boolean isDivisionInCanada(FirstLevelDivisions division) {
         int selectedCountryId = getCountryIdByName(cuscountry.getSelectionModel().getSelectedItem());
         return division.getCountryId() == selectedCountryId;
     }
 
+    /**this checks if the division matches the country selected, in this instance the UK*/
     private boolean isDivisionInUnitedKingdom(FirstLevelDivisions division) {
         int selectedCountryId = getCountryIdByName(cuscountry.getSelectionModel().getSelectedItem());
         return division.getCountryId() == selectedCountryId;
     }
 
+    /**this hashmap maps the country abbreviations to the country ID so the country name can be displayed in the combobox
+     * while maintaining the correct ID*/
     private int getCountryIdByName(String countryName) {
         HashMap<String, Integer> countryIdMap = new HashMap<>();
         countryIdMap.put("U.S", 1);
@@ -96,6 +104,8 @@ public class AddCustomer implements Initializable {
         return countryIdMap.getOrDefault(countryName, -1);
     }
 
+    /**this is the event handler to submit the add customer form, it utilizes the insert() method from the corresponding query class
+     * and provides an error message if there is anything wrong with the form*/
     @FXML
     void onActionSubmit(ActionEvent event) throws IOException {
         try {
@@ -123,6 +133,8 @@ public class AddCustomer implements Initializable {
         }
     }
 
+    /**this is the event handler to submit updates using the add customer form, it utilizes the update() method from the corresponding query class
+     * and provides an error message if there is anything wrong with the form*/
     @FXML
     void onActionUpdate (ActionEvent event) {
         try {
@@ -151,6 +163,7 @@ public class AddCustomer implements Initializable {
         }
     }
 
+    /**this is the event handler to go back to the previous page*/
     @FXML
     void onActionBack (ActionEvent event) throws IOException {
 
@@ -160,6 +173,7 @@ public class AddCustomer implements Initializable {
         stage.show();
     }
 
+    /**this collects customer information to be updated and sent to the add customer form*/
     public void sendCustomer (Customers customers) {
         cusid.setText(customers.getCustomerId());
         cusname.setText(customers.getCustomerName());
@@ -168,6 +182,8 @@ public class AddCustomer implements Initializable {
         cusphone.setText(customers.getPhone());
     }
 
+    /**this is the initialize method, it sets a list of countries to the corresponding combobox, calls the method to populate the division combobox
+     * and sets a listener to the countries combobox using a lambda expression*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<String> countries = FXCollections.observableArrayList();

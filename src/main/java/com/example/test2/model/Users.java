@@ -2,18 +2,18 @@ package com.example.test2.model;
 /**This is the Users model class, it contains variables, setters and getters, a constructor and a toString method*/
 
 public class Users {
-    /**These are the variables, they are for user id, username and password*/
     private String userId;
     private String userName;
     private String password;
-    /**This is the constructor*/
 
+    /**This is the constructor*/
     public Users(String userId, String userName, String password) {
         this.userId = userId;
         this.userName = userName;
         this.password = password;
     }
-/**This gets the user id*/
+
+    /**This gets the user id*/
     public String getUserId() {
         return userId;
     }

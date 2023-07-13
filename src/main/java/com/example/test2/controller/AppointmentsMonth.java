@@ -1,11 +1,8 @@
 package com.example.test2.controller;
 
 import com.example.test2.HelloApplication;
-import com.example.test2.helper.AppointmentQuery;
+import com.example.test2.dao.AppointmentQuery;
 import com.example.test2.model.Appointments;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,33 +12,31 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
+/**this is the controller for the total number of customer appointments by type and month report*/
 public class AppointmentsMonth implements Initializable {
-
-    public Button backmonth;
-    public ComboBox <String> monthpick;
-    public ComboBox <Appointments> typepick;
-    public Label numofapp;
-    public ObservableList<Appointments> typeList = FXCollections.observableArrayList();
+    @FXML
+    private Button backmonth;
+    @FXML
+    private ComboBox <String> monthpick;
+    @FXML
+    private ComboBox <Appointments> typepick;
+    @FXML
+    private Label numofapp;
+    private ObservableList<Appointments> typeList = FXCollections.observableArrayList();
 
     Stage stage;
     Parent scene;
 
+    /**this is the event handler to go back to the previous page*/
     @FXML
     void onActionBackMonth (ActionEvent event) throws IOException {
 
@@ -51,6 +46,7 @@ public class AppointmentsMonth implements Initializable {
         stage.show();
     }
 
+    /**this populates the type combobox utilizing the select() method in the corresponding query class*/
     private void populatetypecombobox() {
         try {
             typeList = AppointmentQuery.select();
@@ -60,6 +56,7 @@ public class AppointmentsMonth implements Initializable {
         }
     }
 
+    /**this displays the number of appointments by type and month selected from the comboboxes in a label on the form*/
     private void updateAppointmentCount() {
         String selectedMonth = monthpick.getValue();
         Appointments selectedType = typepick.getValue();
@@ -83,6 +80,9 @@ public class AppointmentsMonth implements Initializable {
         }
     }
 
+    /**this is the initialize method, it gets the months and sets them to the corresponding combobox starting with the current month
+     * it also calls the method to populate the type combobox,
+     * and uses lambda expressions to set listeners on the comboboxes to set the number in the label appropriately*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

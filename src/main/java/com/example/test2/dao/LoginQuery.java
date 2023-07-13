@@ -1,6 +1,6 @@
-package com.example.test2.helper;
+package com.example.test2.dao;
 
-import com.example.test2.dao.JDBC;
+import com.example.test2.helper.JDBC;
 import com.example.test2.model.Users;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,8 +9,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**This class handles all SQL for communicating to the database to get user information*/
 public abstract class LoginQuery {
 
+    /**This selectCredentials method gets the username and password for users*/
     public static boolean selectCredentials (String userName, String password) throws SQLException {
         String sql = "SELECT * FROM USERS WHERE User_Name = ? AND Password = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -22,6 +24,7 @@ public abstract class LoginQuery {
         return rs.next();
     }
 
+    /**This select2 method gets all information for users from the database and stores it in an observable list*/
     public static ObservableList<Users> select2() throws SQLException {
         String sql = "SELECT * FROM Users";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);

@@ -1,8 +1,8 @@
 package com.example.test2.controller;
 
 import com.example.test2.HelloApplication;
-import com.example.test2.helper.AppointmentQuery;
-import com.example.test2.helper.ContactsQuery;
+import com.example.test2.dao.AppointmentQuery;
+import com.example.test2.dao.ContactsQuery;
 import com.example.test2.model.Appointments;
 import com.example.test2.model.Contacts;
 import javafx.collections.FXCollections;
@@ -26,6 +26,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
 
+/**this is the controller for the schedule for each contact in the organization that includes appointment ID, title, type and description,
+ * start date and time, end date and time, and customer ID*/
 public class ContactsAppointments implements Initializable {
     @FXML
     private TableColumn <Appointments, Integer> cusid2;
@@ -58,6 +60,8 @@ public class ContactsAppointments implements Initializable {
     Parent scene;
     public ObservableList<Contacts> contactsList = FXCollections.observableArrayList();
     public ObservableList<Appointments> appointmentsList = FXCollections.observableArrayList();
+
+    /**this is the event handler to go back to the previous page*/
     @FXML
     void onActionBackContact (ActionEvent event) throws IOException {
 
@@ -67,6 +71,7 @@ public class ContactsAppointments implements Initializable {
         stage.show();
     }
 
+    /**this populates the contacts combobox utilizing the select() method from the corresponding query class*/
     private void populatecontactscomboBox() {
         try {
             contactsList = ContactsQuery.select();
@@ -75,6 +80,7 @@ public class ContactsAppointments implements Initializable {
         }
     }
 
+    /**this sets the items in the table for the selected contact using the selectAppointmentsForContact() method in the corresponding query class*/
     private void updateAppointmentsTableView(int contactId) {
         try {
             appointmentsList = AppointmentQuery.selectAppointmentsForContact(contactId);
@@ -83,6 +89,9 @@ public class ContactsAppointments implements Initializable {
         }
     }
 
+    /**this is the initialize method, it sets up the tableview, calls the method to popualte the contacts combobox, and
+     * sets items to the tableview using a filtered list that is generated from the listener on the combobox,
+     * the listener is set using a lambda expression*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         contact2.setCellValueFactory(new PropertyValueFactory<>("contactId"));

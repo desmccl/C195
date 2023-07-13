@@ -1,10 +1,10 @@
 package com.example.test2.controller;
 
 import com.example.test2.HelloApplication;
-import com.example.test2.helper.AppointmentQuery;
-import com.example.test2.helper.ContactsQuery;
-import com.example.test2.helper.CustomerQuery;
-import com.example.test2.helper.LoginQuery;
+import com.example.test2.dao.AppointmentQuery;
+import com.example.test2.dao.ContactsQuery;
+import com.example.test2.dao.CustomerQuery;
+import com.example.test2.dao.LoginQuery;
 import com.example.test2.model.Appointments;
 import com.example.test2.model.Contacts;
 import com.example.test2.model.Customers;
@@ -25,15 +25,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.chrono.ChronoLocalDateTime;
-import java.util.List;
+import java.time.*;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
+import java.util.TimeZone;
+/**This class in the controller for appointment scheduling page*/
 public class Appointment implements Initializable {
     @FXML
     private TextField description;
@@ -134,7 +130,10 @@ public class Appointment implements Initializable {
 
     Stage stage;
     Parent scene;
+    ZoneId edtZone = ZoneId.of("America/New_York");
+    TimeZone edtTimeZone = TimeZone.getTimeZone("America/New_York");
 
+    /**This checks for any overlap in appointment times*/
     private boolean checkAppointmentOverlap(LocalDateTime newAppointmentDateTime) {
         ObservableList<Appointments> appointmentsList = null;
         try {
@@ -154,6 +153,7 @@ public class Appointment implements Initializable {
         return false;
     }
 
+    /**This is the event handler to add an appointment, it utilizes the insert() method from the matching query class*/
     @FXML
     void onActionAddApp (ActionEvent event) throws IOException {
         try {
@@ -167,6 +167,7 @@ public class Appointment implements Initializable {
             String appCustomer = (cusID.getValue().getCustomerId());
             int appUser = Integer.parseInt(userID.getValue().getUserId());
             int appContacts = contacts.getValue().getContactId();
+
 
 
 
@@ -204,6 +205,7 @@ public class Appointment implements Initializable {
         stage.show();
     }
 
+    /**This is the event handler to update an appointment, it utilizes the update() method from the matching query class*/
     @FXML
     void onActionSubmit (ActionEvent event) throws IOException {
         try {
@@ -218,6 +220,9 @@ public class Appointment implements Initializable {
             String appCustomer = (cusID.getValue().getCustomerId());
             int appUser = Integer.parseInt(userID.getValue().getUserId());
             int appContacts = contacts.getValue().getContactId();
+
+
+
 
             if (checkAppointmentOverlap(appDateTime)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -251,6 +256,7 @@ public class Appointment implements Initializable {
         stage.show();
     }
 
+    /**This sends appointment information to the form at the top of the page to be updated*/
     @FXML
     void onActionUpdateApp (ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -266,13 +272,14 @@ public class Appointment implements Initializable {
         stage.show();
     }
 
+    /**This gathers appointment information to be sent to the form at the top of the page to be updated*/
     public void sendAppointment(Appointments appointments) {
         appID.setText(String.valueOf(appointments.getAppointmentId()));
         title.setText(appointments.getTitle());
         description.setText(appointments.getDescription());
         location.setText(appointments.getLocation());
 
-        // Select the matching value in the type ComboBox
+
         for (Appointments option : type.getItems()) {
             if (option.getType().equals(appointments.getType())) {
                 type.setValue(option);
@@ -283,7 +290,7 @@ public class Appointment implements Initializable {
         date.setValue(appointments.getStart().toLocalDate());
         time.setValue(appointments.getStart().toLocalTime());
 
-        // Select the matching value in the cusID ComboBox
+
         for (Customers customer : cusID.getItems()) {
             if (customer.getCustomerId().equals(appointments.getCustomerId())) {
                 cusID.setValue(customer);
@@ -291,7 +298,7 @@ public class Appointment implements Initializable {
             }
         }
 
-        // Select the matching value in the userID ComboBox
+
         for (Users user : userID.getItems()) {
             if ((user.getUserId()).equals(String.valueOf(appointments.getUserId()))) {
                 userID.setValue(user);
@@ -299,7 +306,7 @@ public class Appointment implements Initializable {
             }
         }
 
-        // Select the matching value in the contacts ComboBox
+
         for (Contacts contact : contacts.getItems()) {
             if (contact.toString().equals(appointments.getContactId())) {
                 contacts.setValue(contact);
@@ -308,6 +315,7 @@ public class Appointment implements Initializable {
         }
     }
 
+    /**This is the event handler to delete an appointment, it utilizes the delete() method from the matching query class*/
     @FXML
     void onActionDeleteApp (ActionEvent event) throws IOException, SQLException {
         Appointments selectedAppointment = appointments.getSelectionModel().getSelectedItem();
@@ -332,6 +340,7 @@ public class Appointment implements Initializable {
         stage.show();
     }
 
+    /**This is the event handler to go back to the previous page*/
     @FXML
     void onActionBack2 (ActionEvent event) throws IOException {
 
@@ -341,6 +350,7 @@ public class Appointment implements Initializable {
         stage.show();
     }
 
+    /**This populates the combobox for contacts, it utilizes the select() method from the matching query class*/
     private void populatecontactscomboBox() {
         try {
             contactsList = ContactsQuery.select();
@@ -349,6 +359,7 @@ public class Appointment implements Initializable {
         }
     }
 
+    /**This populates the combobox for customers, it utilizes the select() method from the matching query class*/
     private void populatecustomeridcombobox() {
         try {
             customerList = CustomerQuery.select();
@@ -358,6 +369,7 @@ public class Appointment implements Initializable {
         }
     }
 
+    /**This populates the combobox for users, it utilizes the select2() method from the matching query class*/
     private void populateusercombobox() {
         try {
             userList = LoginQuery.select2();
@@ -367,6 +379,7 @@ public class Appointment implements Initializable {
         }
     }
 
+    /**This populates the combobox for types, it utilizes the select() method from the matching query class*/
     private void populatetypecombobox() {
         try {
             typeList = AppointmentQuery.select();
@@ -376,6 +389,10 @@ public class Appointment implements Initializable {
         }
     }
 
+    /**This is the initialize method, it sets the corresponding information in the three tables using observable lists
+     * the month and week tables are populated with filtered lists created with lambda expressions
+     * the methods to populate the comboboxes are also called here
+     * times are converted in the time combobox here as well*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<Appointments> appointmentsList = null;
@@ -386,13 +403,17 @@ public class Appointment implements Initializable {
         }
         appointments.setItems(appointmentsList);
 
-        LocalTime start = LocalTime.of(8,0);
-        LocalTime end = LocalTime.of(22,0);
+
+        LocalTime start = LocalTime.of(8, 0);
+        LocalTime end = LocalTime.of(22, 0);
 
         while (start.isBefore(end.plusSeconds(1))) {
-            time.getItems().add(start);
+            ZonedDateTime zonedDateTime = ZonedDateTime.of(LocalDate.now(), start, edtZone);
+            time.getItems().add(zonedDateTime.toLocalTime());
             start = start.plusHours(1);
         }
+
+        TimeZone.setDefault(edtTimeZone);
         time.getSelectionModel().getSelectedItem();
 
         contactidcol.setCellValueFactory(new PropertyValueFactory<>("contactId"));
@@ -406,6 +427,7 @@ public class Appointment implements Initializable {
         startcol.setCellValueFactory(new PropertyValueFactory<>("start"));
         endcol.setCellValueFactory(new PropertyValueFactory<>("end"));
 
+        //lambda to filter the list of appointments by month
         ObservableList<Appointments> filteredByMonthList = appointmentsList.filtered(appointment -> appointment.getStart().getMonth() == LocalDate.now().getMonth());
         appointments2.setItems(filteredByMonthList);
 
@@ -420,6 +442,7 @@ public class Appointment implements Initializable {
         startcol1.setCellValueFactory(new PropertyValueFactory<>("start"));
         endcol1.setCellValueFactory(new PropertyValueFactory<>("end"));
 
+        //lambda to filter the list of appointments by week
         ObservableList<Appointments> filteredByWeekList = appointmentsList.filtered(appointment -> {
             LocalDate today = LocalDate.now();
             LocalDate startOfWeek = today.with(DayOfWeek.MONDAY);
