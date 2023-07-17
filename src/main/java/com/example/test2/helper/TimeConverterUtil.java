@@ -1,7 +1,7 @@
 package com.example.test2.helper;
 
 import java.time.*;
-/**This utility handles time zone conversions*/
+/**This utility handles time zone conversions for the database*/
 public class TimeConverterUtil {
     /**This method converts times in the application to the users timezone*/
     public static LocalDateTime convertToUserTimeZone(LocalDateTime storedDateTime) {

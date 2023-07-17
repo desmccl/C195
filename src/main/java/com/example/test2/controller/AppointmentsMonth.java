@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+
 /**this is the controller for the total number of customer appointments by type and month report*/
 public class AppointmentsMonth implements Initializable {
     @FXML
@@ -28,10 +29,10 @@ public class AppointmentsMonth implements Initializable {
     @FXML
     private ComboBox <String> monthpick;
     @FXML
-    private ComboBox <Appointments> typepick;
+    private ComboBox<String> typepick;
     @FXML
     private Label numofapp;
-    private ObservableList<Appointments> typeList = FXCollections.observableArrayList();
+    public ObservableList<String> typesList = FXCollections.observableArrayList();
 
     Stage stage;
     Parent scene;
@@ -48,28 +49,24 @@ public class AppointmentsMonth implements Initializable {
 
     /**this populates the type combobox utilizing the select() method in the corresponding query class*/
     private void populatetypecombobox() {
-        try {
-            typeList = AppointmentQuery.select();
-            typepick.setItems(typeList);
-        } catch (SQLException e) {
-
-        }
+        typesList.add("De-briefing");
+        typesList.add("Planning Session");
     }
 
+
     /**this displays the number of appointments by type and month selected from the comboboxes in a label on the form*/
-    private void updateAppointmentCount() {
+    private void updateAppointmentCount() throws SQLException {
         String selectedMonth = monthpick.getValue();
-        Appointments selectedType = typepick.getValue();
+        String selectedType = typepick.getValue();
 
         if (selectedMonth != null && selectedType != null) {
             int count = 0;
 
-            // Iterate through the appointment list and count the matching appointments
-            for (Appointments appointment : typeList) {
+            for (Appointments appointment : AppointmentQuery.select()) {
                 String appointmentMonth = appointment.getStart().format(DateTimeFormatter.ofPattern("MMMM"));
                 String appointmentType = appointment.getType();
 
-                if (appointmentMonth.equals(selectedMonth) && appointmentType.equals(selectedType.getType())) {
+                if (appointmentMonth.equals(selectedMonth) && appointmentType.equals(selectedType)) {
                     count++;
                 }
             }
@@ -79,6 +76,13 @@ public class AppointmentsMonth implements Initializable {
             numofapp.setText("");
         }
     }
+
+
+
+
+
+
+
 
     /**this is the initialize method, it gets the months and sets them to the corresponding combobox starting with the current month
      * it also calls the method to populate the type combobox,
@@ -100,9 +104,23 @@ public class AppointmentsMonth implements Initializable {
 
         populatetypecombobox();
 
+        typepick.setItems(typesList);
+
         //lambda to use method for event listeners to update the label based on the combobox choices
-        monthpick.setOnAction(event -> updateAppointmentCount());
-        typepick.setOnAction(event -> updateAppointmentCount());
+        monthpick.setOnAction(event -> {
+            try {
+                updateAppointmentCount();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        typepick.setOnAction(event -> {
+            try {
+                updateAppointmentCount();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }
 

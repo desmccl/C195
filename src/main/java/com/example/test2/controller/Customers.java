@@ -74,14 +74,16 @@ public class Customers implements Initializable {
 
         for (Appointments existingAppointment : appointmentsList) {
             LocalDateTime start = existingAppointment.getStart();
+            int appointmentID = existingAppointment.getAppointmentId();
 
             long minutesDifference = ChronoUnit.MINUTES.between(appointmentAlert,start);
 
             if (minutesDifference >= 0 && minutesDifference <= 15) {
 
+
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Upcoming Appointment");
-                alert.setContentText("You have an appointment in approx " + minutesDifference + " min(s)");
+                alert.setContentText("You have an appointment in approx " + minutesDifference + " min(s)\n" + "Appointment ID: " + appointmentID + "\n" + start);
                 alert.showAndWait();
 
                 hasAlert = true;
@@ -89,7 +91,7 @@ public class Customers implements Initializable {
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Upcoming Appointment");
-                alert.setContentText("Appointment started approx " + minutesDifference + " min(s) ago!");
+                alert.setContentText("Appointment started approx " + minutesDifference + " min(s) ago! \n" + "Appointment ID: " + appointmentID + "\n" + start);
                 alert.showAndWait();
 
                 hasAlert = true;

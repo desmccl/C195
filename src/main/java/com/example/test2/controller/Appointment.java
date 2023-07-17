@@ -36,7 +36,7 @@ public class Appointment implements Initializable {
     @FXML
     private TextField location;
     @FXML
-    private ComboBox<Appointments> type;
+    private ComboBox<String> type;
     @FXML
     private DatePicker date;
     @FXML
@@ -126,12 +126,16 @@ public class Appointment implements Initializable {
     public ObservableList<Contacts> contactsList = FXCollections.observableArrayList();
     public ObservableList<Customers> customerList = FXCollections.observableArrayList();
     public ObservableList<Users> userList = FXCollections.observableArrayList();
-    public ObservableList<Appointments> typeList = FXCollections.observableArrayList();
+
+    public ObservableList<String> typesList = FXCollections.observableArrayList();
+    public ObservableList<LocalTime> times = FXCollections.observableArrayList();
+    ZoneId userTimeZone = ZoneId.systemDefault();
+
+
+    //private ObservableList<Appointments> typeList = FXCollections.observableArrayList();
 
     Stage stage;
     Parent scene;
-    ZoneId edtZone = ZoneId.of("America/New_York");
-    TimeZone edtTimeZone = TimeZone.getTimeZone("America/New_York");
 
     /**This checks for any overlap in appointment times*/
     private boolean checkAppointmentOverlap(LocalDateTime newAppointmentDateTime) {
@@ -160,7 +164,7 @@ public class Appointment implements Initializable {
             String appTitle = title.getText();
             String appDescription = description.getText();
             String appLocation = location.getText();
-            String appType = String.valueOf(type.getValue().getType());
+            String appType = (type.getValue());
             LocalDate appDate = LocalDate.parse(date.getValue().toString());
             LocalTime appTime = time.getValue();
             LocalDateTime appDateTime = LocalDateTime.of(appDate, appTime);
@@ -182,7 +186,7 @@ public class Appointment implements Initializable {
                 alert.setContentText("Appointment has been scheduled");
                 alert.showAndWait();
 
-                AppointmentQuery.Insert(appTitle, appDescription, appLocation, String.valueOf(appType), appDateTime, appDateTime.plusHours(1), Integer.parseInt(appCustomer), appUser, appContacts);
+                AppointmentQuery.Insert(appTitle, appDescription, appLocation, appType, appDateTime, appDateTime.plusHours(1), Integer.parseInt(appCustomer), appUser, appContacts);
             }
 
 
@@ -213,7 +217,7 @@ public class Appointment implements Initializable {
             String appTitle = title.getText();
             String appDescription = description.getText();
             String appLocation = location.getText();
-            String appType = String.valueOf(type.getValue().getType());
+            String appType = String.valueOf(type.getValue());
             LocalDate appDate = LocalDate.parse(date.getValue().toString());
             LocalTime appTime = time.getValue();
             LocalDateTime appDateTime = LocalDateTime.of(appDate, appTime);
@@ -280,8 +284,8 @@ public class Appointment implements Initializable {
         location.setText(appointments.getLocation());
 
 
-        for (Appointments option : type.getItems()) {
-            if (option.getType().equals(appointments.getType())) {
+        for (String option : type.getItems()) {
+            if (option.equals(appointments.getType())) {
                 type.setValue(option);
                 break;
             }
@@ -380,19 +384,29 @@ public class Appointment implements Initializable {
     }
 
     /**This populates the combobox for types, it utilizes the select() method from the matching query class*/
+    //provide values instead of using database or use a set
     private void populatetypecombobox() {
-        try {
-            typeList = AppointmentQuery.select();
-            type.setItems(typeList);
-        } catch (SQLException e) {
+        typesList.add("De-briefing");
+        typesList.add("Planning Session");
+    }
 
+    /**This populates the time combobox and converts times to users timezone*/
+    private void populatetimecombobox() {
+        LocalTime start = LocalTime.of(8, 0);
+        LocalTime end = LocalTime.of(22, 0);
+
+        while (start.isBefore(end.plusSeconds(1))) {
+            ZonedDateTime zonedDateTime = start.atDate(LocalDate.now()).atZone(ZoneId.of("America/New_York"));
+            LocalTime convertedTime = zonedDateTime.withZoneSameInstant(ZoneId.systemDefault()).toLocalTime();
+            times.add(convertedTime);
+            start = start.plusHours(1);
         }
+        time.setItems(times);
     }
 
     /**This is the initialize method, it sets the corresponding information in the three tables using observable lists
      * the month and week tables are populated with filtered lists created with lambda expressions
-     * the methods to populate the comboboxes are also called here
-     * times are converted in the time combobox here as well*/
+     * the methods to populate the comboboxes are also called here*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<Appointments> appointmentsList = null;
@@ -403,18 +417,9 @@ public class Appointment implements Initializable {
         }
         appointments.setItems(appointmentsList);
 
+        populatetimecombobox();
 
-        LocalTime start = LocalTime.of(8, 0);
-        LocalTime end = LocalTime.of(22, 0);
 
-        while (start.isBefore(end.plusSeconds(1))) {
-            ZonedDateTime zonedDateTime = ZonedDateTime.of(LocalDate.now(), start, edtZone);
-            time.getItems().add(zonedDateTime.toLocalTime());
-            start = start.plusHours(1);
-        }
-
-        TimeZone.setDefault(edtTimeZone);
-        time.getSelectionModel().getSelectedItem();
 
         contactidcol.setCellValueFactory(new PropertyValueFactory<>("contactId"));
         customeridcol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
@@ -463,6 +468,8 @@ public class Appointment implements Initializable {
         typecol11.setCellValueFactory(new PropertyValueFactory<>("type"));
         startcol11.setCellValueFactory(new PropertyValueFactory<>("start"));
         endcol11.setCellValueFactory(new PropertyValueFactory<>("end"));
+
+        type.setItems(typesList);
 
         populatecontactscomboBox();
         populatecustomeridcombobox();

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 
 /**This class handles all SQL for communicating to the database to get appointment information*/
 public abstract class AppointmentQuery {
-    /**This select method pulls all information about appointments from the database and puts it into an observable list*/
+    /**This select method pulls all unique* information about appointments from the database and puts it into an observable list*/
     public static ObservableList<Appointments> select() throws SQLException{
         String sql = "SELECT a.Appointment_ID, a.Title, a.Description, a.Location, a.Type, a.Start, a.End, a.customer_ID, a.User_ID, c.Contact_Name FROM APPOINTMENTS a INNER JOIN Contacts c ON a.Contact_ID = c.Contact_ID";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -47,6 +47,8 @@ public abstract class AppointmentQuery {
         return appointmentsList;
 
     }
+
+
 
     /**This select method pulls all information about appointments for each contact from the database and puts it into an observable list*/
     public static ObservableList<Appointments> selectAppointmentsForContact(int contactId) throws SQLException {

@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.ZoneId;
 import java.util.*;
 
 public class HelloApplication extends Application {
@@ -40,6 +41,8 @@ public class HelloApplication extends Application {
 
         System.out.println("Java Version: " + System.getProperty("java.version"));
         System.out.println("Java Runtime Version: " + System.getProperty("java.runtime.version"));
+
+        //System.out.println(ZoneId.systemDefault());
 
         launch();
     }
