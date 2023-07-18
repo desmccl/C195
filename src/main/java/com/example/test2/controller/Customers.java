@@ -87,7 +87,7 @@ public class Customers implements Initializable {
                 alert.showAndWait();
 
                 hasAlert = true;
-            } else if (minutesDifference >= -15) {
+            } else if (minutesDifference >= -15 && minutesDifference <= -15) {
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Upcoming Appointment");
