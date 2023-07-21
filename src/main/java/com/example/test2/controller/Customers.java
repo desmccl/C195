@@ -60,7 +60,7 @@ public class Customers implements Initializable {
     Parent scene;
 
     /**this method checks for appointments within 15 mins of a user logging in by getting the current time on the users device and checking
-     * it against scheduled appointments. It also lets a user know when an appointment started already*/
+     * it against scheduled appointments. It also lets a user know when an appointment started already and when there are no upcoming appointments within 15 minutes*/
     private boolean appointmentAlert(LocalDateTime appointmentAlert) {
 
         ObservableList<Appointments> appointmentsList = null;
@@ -71,6 +71,7 @@ public class Customers implements Initializable {
         }
 
         boolean hasAlert = false;
+        boolean hasUpcomingAppointments = false;
 
         for (Appointments existingAppointment : appointmentsList) {
             LocalDateTime start = existingAppointment.getStart();
@@ -87,6 +88,7 @@ public class Customers implements Initializable {
                 alert.showAndWait();
 
                 hasAlert = true;
+                hasUpcomingAppointments = true;
             } else if (minutesDifference >= -15 && minutesDifference <= -15) {
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -96,6 +98,12 @@ public class Customers implements Initializable {
 
                 hasAlert = true;
             }
+        }
+        if (!hasUpcomingAppointments) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("No Upcoming Appointments");
+            alert.setContentText("You have no upcoming appointments within the next 15 minutes.");
+            alert.showAndWait();
         }
 
         return hasAlert;
