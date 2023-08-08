@@ -1,4 +1,4 @@
-<h1>What is the Scheduler</h1>
+<h1>What is the Desktop Scheduler</h1>
 <p>This is a stand alone desktop app made with Java, GUI with Scene Builder, and a MySQL database connected by JDBC.</p>
 
 <p>This applications purpose is mainly for scheduling appointments and keeping a contacts list of customers. It is a password protected application and displays alerts throughout usage of the application to keep users aware of any upcoming appointments.
@@ -26,5 +26,5 @@ Click the green "Play" icon on the top right of the screen and wait a moment for
 
 Once it is finished building, the application will display the login page.</ul>
 
-<h1>An example of the Scheduler in action</h1>
+<h1>An example of the Desktop Scheduler in action</h1>
  <img src="https://github.com/desmccl/Desktop-Scheduler/blob/master/Screen%20Recording%202023-08-08%20at%2003.52.15.40%20PM.gif">
