@@ -27,4 +27,4 @@ Click the green "Play" icon on the top right of the screen and wait a moment for
 Once it is finished building, the application will display the login page.</ul>
 
 <h1>An example of the Scheduler in action</h1>
-<p>https://share.getcloudapp.com/6quJAEyd</p>
+ <img src="https://github.com/desmccl/Desktop-Scheduler/blob/master/Screen%20Recording%202023-08-08%20at%2003.52.15.40%20PM.gif">
