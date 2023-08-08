@@ -4,7 +4,7 @@
 <p>This applications purpose is mainly for scheduling appointments and keeping a contacts list of customers. It is a password protected application and displays alerts throughout usage of the application to keep users aware of any upcoming appointments.
 </p>
 
-<p>This application was wriiten using IntelliJ Idea 2023.1 (Ultimate Edition) with Java version 17.0.6 JavaFX-SDK-17.0.6.</p>
+<p>This application was written using IntelliJ Idea 2023.1 (Ultimate Edition) with Java version 17.0.6 JavaFX-SDK-17.0.6.</p>
 <h1>Install</h1>
 <p>You will need the IntelliJ IDE. IntelliJ Idea Community is available for free on their website. Java version 17 and JavaFX SDK 17 is also required to run this application.
 </p>
